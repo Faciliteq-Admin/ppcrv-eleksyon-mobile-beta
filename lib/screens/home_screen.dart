@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 const SizedBox(height: 30),
                 primaryButton(
-                  text: 'ACM\u0027s',
+                  text: 'Clustered Precinct Id\u0027s',
                   onPressed: () async {
                     toACMScreen(context);
                   },

@@ -40,7 +40,10 @@ class _AcmScreenState extends State<AcmScreen> {
           appBar: AppBar(
             backgroundColor: blueColor,
             iconTheme: IconThemeData(color: whiteColor),
-            title: Text('ACM\u0027s', style: TextStyle(color: whiteColor)),
+            title: Text(
+              'Clustered Precinct Id\u0027s',
+              style: TextStyle(color: whiteColor),
+            ),
             titleSpacing: 0,
           ),
           body: ListView.builder(
