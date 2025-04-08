@@ -3,6 +3,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:ppcrv_data_viewing/screens/acm_er_details_screen.dart';
 import 'package:ppcrv_data_viewing/screens/acm_er_screen.dart';
 import 'package:ppcrv_data_viewing/screens/acm_screen.dart';
+import 'package:ppcrv_data_viewing/screens/address_screen.dart';
 import 'package:ppcrv_data_viewing/screens/home_screen.dart';
 import 'package:ppcrv_data_viewing/screens/scanned_details_screen.dart';
 import 'package:ppcrv_data_viewing/screens/scanner_screen.dart';
@@ -11,6 +12,15 @@ toHomeScreen(BuildContext context) {
   Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => LoaderOverlay(child: HomeScreen())),
+  );
+}
+
+toAddressScreen(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => LoaderOverlay(child: AddressScreen()),
+    ),
   );
 }
 
@@ -39,19 +49,15 @@ toACMERScreen(BuildContext context, String acmStr) {
   );
 }
 
-toScannedDetailsScreen(
-  BuildContext context,
-  String type,
-  List<Map<String, dynamic>> dataResult,
-) {
+toScannedDetailsScreen(BuildContext context, String scannedData, String type) {
   Navigator.push(
     context,
     MaterialPageRoute(
       builder:
           (context) => LoaderOverlay(
             child: ScannedDetailsScreen(
+              scannedData: scannedData,
               contestType: type,
-              dataResult: dataResult,
             ),
           ),
     ),

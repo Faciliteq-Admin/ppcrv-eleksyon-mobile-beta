@@ -120,3 +120,53 @@ Widget textLabel({
     ),
   );
 }
+
+Widget dropdownTextField({
+  required BuildContext context,
+  required String labelText,
+  required TextEditingController fieldController,
+  required List<String> items,
+  Color color = whiteColor,
+  ValueChanged<String?>? onChanged,
+}) {
+  return FormField(
+    builder: (state) {
+      return InputDecorator(
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: TextStyle(
+            color: whiteColor,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: whiteColor.withValues(alpha: 0.3)),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: whiteColor.withValues(alpha: 0.3)),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          filled: true,
+          fillColor: whiteColor.withValues(alpha: 0.3),
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            value:
+                fieldController.text.trim().isEmpty
+                    ? null
+                    : fieldController.text.trim(),
+            isDense: true,
+            isExpanded: true,
+            style: const TextStyle(color: Colors.black),
+            onChanged: onChanged,
+            items:
+                items.map((String value) {
+                  return DropdownMenuItem(value: value, child: Text(value));
+                }).toList(),
+          ),
+        ),
+      );
+    },
+  );
+}

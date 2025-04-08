@@ -47,77 +47,33 @@ class _ScannerScreenState extends State<ScannerScreen> {
             scanData.code!.contains('NATIONAL') ||
             scanData.code!.contains('PARTY LIST')) {
           if (isLastQR) {
+            _pauseScanner();
             dataResult = [];
             var type = scanData.code!.trim().split('\n')[0];
-            if (type == 'LOCAL' || type == 'NATIONAL' || type == 'PARTY LIST') {
-              List<String> list = scanData.code!
-                  .substring(type.length)
-                  .trim()
-                  .split('\n');
-              for (var oneContest in list) {
-                setState(() {
-                  var z = {
-                    'contest': oneContest.trim().split(':')[0],
-                    'result': oneContest
-                        .trim()
-                        .split(':')[1]
-                        .replaceAll('=', ': ')
-                        .split('|'),
-                  };
-                  dataResult.add(z);
-                });
-              }
-              if (dataResult.isNotEmpty) {
-                toScannedDetailsScreen(context, type, dataResult);
-              } else {
-                _pauseScanner();
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: textLabel(text: 'Oopps', color: blackColor),
-                      content: textLabel(
-                        text: 'Something went wrong, Please try again',
-                        color: blackColor,
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () async {
-                            _resumeScanner();
-                          },
-                          style: TextButton.styleFrom(
-                            overlayColor: Colors.transparent,
-                          ),
-                          child: Text(
-                            'OK',
-                            style: TextStyle(
-                              color: blueColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              }
-            }
+            toScannedDetailsScreen(context, scanData.code!, type);
+            _resumeScanner();
           } else {
             _pauseScanner();
             showDialog(
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: textLabel(text: 'Oopps', color: blackColor),
+                  title: textLabel(
+                    text: 'Oopps',
+                    color: blackColor,
+                    size: 18,
+                    weight: FontWeight.bold,
+                  ),
                   content: textLabel(
                     text: 'Please scan first the last QR',
                     color: blackColor,
+                    size: 14,
                   ),
                   actions: [
                     TextButton(
                       onPressed: () async {
                         _resumeScanner();
+                        Navigator.pop(context);
                       },
                       style: TextButton.styleFrom(
                         overlayColor: Colors.transparent,
@@ -129,6 +85,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
+                        textAlign: TextAlign.end,
                       ),
                     ),
                   ],
@@ -145,15 +102,22 @@ class _ScannerScreenState extends State<ScannerScreen> {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: textLabel(text: 'Oopps', color: blackColor),
+                title: textLabel(
+                  text: 'Proceed',
+                  color: blackColor,
+                  size: 18,
+                  weight: FontWeight.bold,
+                ),
                 content: textLabel(
                   text: 'Please scan the remaing QR\u0027s',
                   color: blackColor,
+                  size: 14,
                 ),
                 actions: [
                   TextButton(
                     onPressed: () async {
                       _resumeScanner();
+                      Navigator.pop(context);
                     },
                     style: TextButton.styleFrom(
                       overlayColor: Colors.transparent,
@@ -165,6 +129,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                         fontSize: 14,
                         fontWeight: FontWeight.bold,
                       ),
+                      textAlign: TextAlign.end,
                     ),
                   ),
                 ],

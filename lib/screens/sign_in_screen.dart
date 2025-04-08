@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ppcrv_data_viewing/colors.dart';
-import 'package:ppcrv_data_viewing/constant.dart';
 import 'package:ppcrv_data_viewing/screen_navigation.dart';
 import 'package:ppcrv_data_viewing/ui.dart';
 
@@ -13,7 +12,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _username = TextEditingController();
-  final TextEditingController _password = TextEditingController();
+  final TextEditingController _code = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,27 +42,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   labelText: 'Username',
                 ),
                 const SizedBox(height: 20),
-                inputTextField(
-                  fieldController: _password,
-                  labelText: 'Password',
-                  isVisible: true,
-                  isObscureText: isObscureText,
-                  suffixIconAsset:
-                      isObscureText
-                          ? 'assets/icons/ic_password_show.svg'
-                          : 'assets/icons/ic_password_hide.svg',
-                  onPressed: () async {
-                    setState(() {
-                      isObscureText = !isObscureText;
-                    });
-                  },
-                ),
+                inputTextField(fieldController: _code, labelText: 'Code'),
                 const SizedBox(height: 50),
                 primaryButton(
                   text: 'Sign In',
                   onPressed: () async {
-                    toHomeScreen(context);
+                    toAddressScreen(context);
                   },
+                ),
+                const SizedBox(height: 10),
+                textLabel(
+                  text: '2025 Election Powered By MyTech',
+                  color: whiteColor,
                 ),
                 Spacer(),
               ],

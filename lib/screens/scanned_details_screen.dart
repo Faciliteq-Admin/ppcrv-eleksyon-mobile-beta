@@ -5,11 +5,11 @@ import 'package:ppcrv_data_viewing/colors.dart';
 import 'package:ppcrv_data_viewing/ui.dart';
 
 class ScannedDetailsScreen extends StatefulWidget {
+  String scannedData;
   String contestType;
-  List<Map<String, dynamic>> dataResult;
   ScannedDetailsScreen({
+    required this.scannedData,
     required this.contestType,
-    required this.dataResult,
     super.key,
   });
 
@@ -18,6 +18,35 @@ class ScannedDetailsScreen extends StatefulWidget {
 }
 
 class _ScannedDetailsScreenState extends State<ScannedDetailsScreen> {
+  List<Map<String, dynamic>> dataResult = [];
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      dataResult = _dataList();
+    });
+  }
+
+  List<Map<String, dynamic>> _dataList() {
+    List<Map<String, dynamic>> result = [];
+    List<String> list = widget.scannedData
+        .substring(widget.contestType.length)
+        .trim()
+        .split('\n');
+    for (var oneContest in list) {
+      var z = {
+        'contest': oneContest.trim().split(':')[0],
+        'result': oneContest
+            .trim()
+            .split(':')[1]
+            .replaceAll('=', ': ')
+            .split('|'),
+      };
+      result.add(z);
+    }
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,9 +71,9 @@ class _ScannedDetailsScreenState extends State<ScannedDetailsScreen> {
           ),
           body: ListView.builder(
             padding: EdgeInsets.zero,
-            itemCount: widget.dataResult.length,
+            itemCount: dataResult.length,
             itemBuilder: (context, index) {
-              var oneContest = widget.dataResult[index]['result'];
+              var oneContest = dataResult[index]['result'];
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -53,7 +82,7 @@ class _ScannedDetailsScreenState extends State<ScannedDetailsScreen> {
                     width: MediaQuery.of(context).size.width,
                     color: blackColor.withValues(alpha: 0.7),
                     child: textLabel(
-                      text: widget.dataResult[index]['contest'],
+                      text: dataResult[index]['contest'],
                       color: whiteColor,
                       size: 14,
                       weight: FontWeight.bold,

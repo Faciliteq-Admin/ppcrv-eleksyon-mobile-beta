@@ -59,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     text:
                         '* Please scan first the last QR before the other QR\u0027s',
                     color: whiteColor,
-                    size: 12,
                     weight: FontWeight.bold,
                     align: TextAlign.center,
                   ),
