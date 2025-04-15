@@ -6,6 +6,7 @@ const Color blueColor = Color(0xFF2F86FF);
 const Color redColor = Color(0xFFFF0000);
 const Color darkGrayColor = Color(0xFF282828);
 const Color lightGrayColor = Color(0xFFF2F2F2);
+const Color lightGreenColor = Color(0xFF00DC21);
 
 extension HexColor on Color {
   static Color fromHex(String hexString) {

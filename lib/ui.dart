@@ -75,6 +75,7 @@ Widget primaryButton({
   double width = double.infinity,
   Color buttonColor = blueColor,
   Color textColor = whiteColor,
+  bool isVisible = false,
   void Function()? onPressed,
 }) {
   return SizedBox(
@@ -88,13 +89,26 @@ Widget primaryButton({
       child: TextButton(
         onPressed: onPressed,
         style: TextButton.styleFrom(overlayColor: Colors.transparent),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                color: textColor,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Visibility(visible: isVisible, child: const SizedBox(width: 10)),
+            Visibility(
+              visible: isVisible,
+              child: Icon(
+                Icons.check_circle_outline_rounded,
+                color: lightGreenColor,
+              ),
+            ),
+          ],
         ),
       ),
     ),

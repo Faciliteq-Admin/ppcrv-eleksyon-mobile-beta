@@ -64,7 +64,7 @@ class _AddressScreenState extends State<AddressScreen> {
                   primaryButton(
                     text: 'Submit',
                     onPressed: () async {
-                      toHomeScreen(context);
+                      toPrimaScreen(context);
                     },
                   ),
                   Spacer(),

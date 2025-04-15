@@ -5,8 +5,18 @@ import 'package:ppcrv_data_viewing/screens/acm_er_screen.dart';
 import 'package:ppcrv_data_viewing/screens/acm_screen.dart';
 import 'package:ppcrv_data_viewing/screens/address_screen.dart';
 import 'package:ppcrv_data_viewing/screens/home_screen.dart';
+import 'package:ppcrv_data_viewing/screens/prima_screen.dart';
 import 'package:ppcrv_data_viewing/screens/scanned_details_screen.dart';
 import 'package:ppcrv_data_viewing/screens/scanner_screen.dart';
+
+toPrimaScreen(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => LoaderOverlay(child: PrimaScreen()),
+    ),
+  );
+}
 
 toHomeScreen(BuildContext context) {
   Navigator.push(

@@ -65,7 +65,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                     weight: FontWeight.bold,
                   ),
                   content: textLabel(
-                    text: 'Please scan first the last QR',
+                    text: 'Please scan first the election id QR (last QR)',
                     color: blackColor,
                     size: 14,
                   ),
@@ -98,44 +98,85 @@ class _ScannerScreenState extends State<ScannerScreen> {
           setState(() {
             isLastQR = true;
           });
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: textLabel(
-                  text: 'Proceed',
-                  color: blackColor,
-                  size: 18,
-                  weight: FontWeight.bold,
-                ),
-                content: textLabel(
-                  text: 'Please scan the remaing QR\u0027s',
-                  color: blackColor,
-                  size: 14,
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () async {
-                      _resumeScanner();
-                      Navigator.pop(context);
-                    },
-                    style: TextButton.styleFrom(
-                      overlayColor: Colors.transparent,
-                    ),
-                    child: Text(
-                      'OK',
-                      style: TextStyle(
-                        color: blueColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.end,
-                    ),
+          if (scanData.code!.contains('RV')) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: textLabel(
+                    text: 'Proceed',
+                    color: blackColor,
+                    size: 18,
+                    weight: FontWeight.bold,
                   ),
-                ],
-              );
-            },
-          );
+                  content: textLabel(
+                    text: 'Please scan the remaing QR\u0027s',
+                    color: blackColor,
+                    size: 14,
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () async {
+                        _resumeScanner();
+                        Navigator.pop(context);
+                      },
+                      style: TextButton.styleFrom(
+                        overlayColor: Colors.transparent,
+                      ),
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          color: blueColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          } else {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: textLabel(
+                    text: 'Oopps',
+                    color: blackColor,
+                    size: 18,
+                    weight: FontWeight.bold,
+                  ),
+                  content: textLabel(
+                    text: 'Please try again',
+                    color: blackColor,
+                    size: 14,
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () async {
+                        _resumeScanner();
+                        Navigator.pop(context);
+                      },
+                      style: TextButton.styleFrom(
+                        overlayColor: Colors.transparent,
+                      ),
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          color: blueColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
         }
       }
     });
